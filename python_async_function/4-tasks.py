@@ -1,4 +1,4 @@
-#/usr/bin/env python3
+#!/usr/bin/env python3
 """Execute multiple tasks concurrently and return their delays."""
 
 
@@ -16,10 +16,10 @@ async def task_wait_n(n: int, max_delay: int) -> List[float]:
 
     for _ in range(n):
         task = task_wait_random(max_delay)
-        task.append(tasks)
+        tasks.append(task)
 
     for completed in asyncio.as_completed(tasks):
         delay = await completed
+        results.append(delay)
 
-    results.append(delay)
     return results
