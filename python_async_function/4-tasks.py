@@ -33,7 +33,7 @@ async def task_wait_n(n: int, max_delay: int) -> List[float]:
 
     Renvoie :
         Une liste de n nombres à virgule, déjà triés dans l'ordre
-        croissant, sans avoir utilisé sort().
+        croissant, sans utiliser de fonction de tri.
     """
 
     # ÉTAPE 1 : créer les Tasks.
@@ -62,7 +62,7 @@ async def task_wait_n(n: int, max_delay: int) -> List[float]:
         # On ajoute le temps obtenu à la fin de la liste.
         delays.append(delay)
 
-    # ÉTAPE 4 : renvoyer la liste, déjà triée.
+    # ÉTAPE 4 : renvoyer la liste, déjà dans l'ordre croissant.
     # Attention : ce "return" est HORS de la boucle "for"
     # (même indentation que "for"), sinon on s'arrêterait au 1er tour.
     return delays
