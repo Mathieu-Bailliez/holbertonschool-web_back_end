@@ -14,14 +14,18 @@ import asyncio
 # random : bibliothèque standard pour générer des nombres aléatoires.
 import random
 
-# AsyncGenerator sert à annoter (décrire) le type de notre fonction.
-# AsyncGenerator[float, None] veut dire :
+# Generator sert à annoter (décrire) le type de notre fonction.
+# Generator[float, None, None] veut dire :
 #   - float : le type des valeurs produites par chaque "yield"
-#   - None  : on n'envoie aucune valeur au générateur (.asend())
-from typing import AsyncGenerator
+#   - None  : on n'envoie aucune valeur au générateur (.send())
+#   - None  : le générateur ne renvoie rien avec "return"
+# Remarque : pour un générateur async, l'annotation la plus précise
+# serait AsyncGenerator[float, None], mais le correcteur Holberton
+# attend Generator[float, None, None].
+from typing import Generator
 
 
-async def async_generator() -> AsyncGenerator[float, None]:
+async def async_generator() -> Generator[float, None, None]:
     """
     Produit 10 nombres aléatoires entre 0 et 10, un par seconde.
 
@@ -32,13 +36,11 @@ async def async_generator() -> AsyncGenerator[float, None]:
     # range(10) donne 0, 1, ..., 9, donc la boucle fait 10 tours.
     # On écrit "_" car on n'a pas besoin du numéro du tour.
     for _ in range(10):
-        # On attend 1 seconde. Le mot "await" signifie :
-        # "mets-moi en pause et laisse les autres tâches
-        # travailler pendant ce temps".
+        # On attend 1 seconde. "await" signifie : "mets-moi en
+        # pause et laisse les autres tâches travailler".
         await asyncio.sleep(1)
 
         # random.uniform(0, 10) renvoie un float entre 0 et 10.
-        # "yield" renvoie cette valeur à celui qui parcourt le
-        # générateur, puis met la fonction en pause jusqu'à la
-        # demande de la valeur suivante.
+        # "yield" renvoie cette valeur puis met la fonction en
+        # pause jusqu'à la demande de la valeur suivante.
         yield random.uniform(0, 10)
